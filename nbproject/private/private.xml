@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/travelpidev/controller/FrontPlanController.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>109</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Wofurani/Documents/NetBeansProjects/TravelPidev/src/travelpidev/services/PlanService.java</file>
+            <file>file:/C:/Users/Wofurani/Documents/NetBeansProjects/TravelPidev/src/travelpidev/services/EventPlaningService.java</file>
+            <file>file:/C:/Users/Wofurani/Documents/NetBeansProjects/TravelPidev/src/travelpidev/TravelPidev.java</file>
+            <file>file:/C:/Users/Wofurani/Documents/NetBeansProjects/TravelPidev/src/travelpidev/gui/FrontPlan.fxml</file>
+            <file>file:/C:/Users/Wofurani/Documents/NetBeansProjects/TravelPidev/src/travelpidev/services/GuideService.java</file>
+            <file>file:/C:/Users/Wofurani/Documents/NetBeansProjects/TravelPidev/src/travelpidev/style/FrontPlanStyle.css</file>
+            <file>file:/C:/Users/Wofurani/Documents/NetBeansProjects/TravelPidev/src/travelpidev/controller/FrontPlanController.java</file>
+        </group>
+    </open-files>
+</project-private>
