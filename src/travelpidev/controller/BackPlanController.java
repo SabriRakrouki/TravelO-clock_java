@@ -5,8 +5,16 @@
  */
 package travelpidev.controller;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javax.swing.JFileChooser;
 import travelpidev.entities.Plan;
 import travelpidev.services.PlanService;
 
@@ -48,7 +57,8 @@ public class BackPlanController implements Initializable {
     private TableColumn<Plan, String> ColName;
     @FXML
     private TableColumn<Plan, String> ColDescrip;
-
+    @FXML
+    private Button pdfprint;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -74,7 +84,7 @@ public class BackPlanController implements Initializable {
     @FXML
     public void handlerUpdateAction(ActionEvent event) {
         if (event.getSource() == btnUpdate) {
-            
+
             Plan plan = new Plan();
             plan.setId(tableView.getSelectionModel().getSelectedItem().getId());
             plan.setDesc(txtDescrip.getText());
@@ -83,7 +93,14 @@ public class BackPlanController implements Initializable {
             showPlans();
         }
     }
+@FXML
+    void printpdfFunci(ActionEvent event) {
+        if(event.getSource()==pdfprint){
+            printPDF();
+            System.out.println("test");
+        }
 
+    }
     @FXML
     public void handlerDeleteAction(ActionEvent event) {
         if (event.getSource() == btnDelete) {
@@ -109,7 +126,7 @@ public class BackPlanController implements Initializable {
     public void updatePlan(Plan plan) {
         System.out.println("update");
         PlanService planService = new PlanService();
-        
+
         planService.edit(plan);
 
     }
@@ -117,7 +134,7 @@ public class BackPlanController implements Initializable {
     public void deletePlan(Plan plan) {
         PlanService planService = new PlanService();
         planService.delete(plan);
-        
+
     }
 
     public void showPlans() {
@@ -127,6 +144,41 @@ public class BackPlanController implements Initializable {
         ColName.setCellValueFactory(new PropertyValueFactory<Plan, String>("name"));
         ColDescrip.setCellValueFactory(new PropertyValueFactory<>("desc"));
         tableView.setItems(list);
+
+    }
+    
+
+    private void printPDF() {
+        String path = "C:\\Users\\Wofurani\\Desktop/test.pdf";
+        
+
+       
+        
+        try {Document d = new Document();
+            PdfWriter.getInstance(d, new FileOutputStream(path));
+            System.out.println(path);
+            d.open();
+            PdfPTable pTable = new PdfPTable(3);
+            pTable.addCell("id");
+            pTable.addCell("name");
+            pTable.addCell("description");
+            
+                tableView.getItems().forEach((t) -> {
+                    pTable.addCell(String.valueOf(t.getId()) );
+                    pTable.addCell(t.getName());
+                    pTable.addCell(t.getDesc());
+                try {
+                    d.add(pTable);
+                } catch (DocumentException ex) {
+                    System.out.println(ex);                }
+                });
+            d.close();
+
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex);
+        } catch (DocumentException ex) {
+            System.out.println(ex);
+        }
 
     }
 

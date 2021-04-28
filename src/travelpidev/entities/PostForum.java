@@ -14,6 +14,8 @@ public class PostForum {
     private int id;
     private String Title;
     private String contenu;
+    private int catId;
+    
 
     public PostForum() {
     }
@@ -45,6 +47,14 @@ public class PostForum {
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
+    }
+
+    public int getCatId() {
+        return catId;
+    }
+
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
     @Override

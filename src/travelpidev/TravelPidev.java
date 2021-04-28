@@ -25,11 +25,15 @@ import javafx.stage.Stage;
  */
 public class TravelPidev extends Application {
 
+public static Stage primaryStage;
+    
+    
    @Override
     public void start(Stage primaryStage) {
        try {
+          this.primaryStage=primaryStage;
            Parent root = FXMLLoader.load(getClass()
-                   .getResource("./gui/FrontPlan.fxml"));
+                   .getResource("./gui/Calendar.fxml"));
            
            Scene scene = new Scene(root);
            primaryStage.setScene(scene);
@@ -43,6 +47,8 @@ public class TravelPidev extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+         System.setProperty("calendarfx.developer", "true");
+         
         launch(args);
     }
     

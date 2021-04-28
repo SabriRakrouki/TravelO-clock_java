@@ -63,6 +63,17 @@ import travelpidev.services.EventPlaningService;
 import travelpidev.services.GuideService;
 import travelpidev.services.PlanService;
 
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.view.CalendarView;
+import java.time.LocalTime;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import static travelpidev.TravelPidev.primaryStage;
 /**
  * FXML Controller class
  *
@@ -108,8 +119,7 @@ public class FrontPlanController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        getAll();
-        showAllEvent();
+        calenderviewing();
         // TODO
     }
 
@@ -201,6 +211,60 @@ public class FrontPlanController implements Initializable {
         list = gs.getAll();
         optGuide.setItems(list);
 
+    }
+    public  void calenderviewing(){
+         CalendarView calendarView = new CalendarView();
+
+        Calendar katja = new Calendar("Katja");
+       
+
+        katja.setShortName("K");
+       
+       
+
+        katja.setStyle(Style.STYLE1);
+        
+
+        CalendarSource familyCalendarSource = new CalendarSource("Family");
+        familyCalendarSource.getCalendars().addAll();
+
+        calendarView.getCalendarSources().setAll(familyCalendarSource);
+        calendarView.setRequestedTime(LocalTime.now());
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(calendarView); // introPane);
+
+        Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
+            @Override
+            public void run() {
+                while (true) {
+                    Platform.runLater(() -> {
+                        calendarView.setToday(LocalDate.now());
+                        calendarView.setTime(LocalTime.now());
+                    });
+
+                    try {
+                        // update every 10 seconds
+                        sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        };
+
+        updateTimeThread.setPriority(Thread.MIN_PRIORITY);
+        updateTimeThread.setDaemon(true);
+        updateTimeThread.start();
+Scene scene = new Scene(stackPane);
+        primaryStage.setTitle("Calendar");
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(1300);
+        primaryStage.setHeight(1000);
+        primaryStage.centerOnScreen();
+        primaryStage.show();
+        
     }
 
 }
